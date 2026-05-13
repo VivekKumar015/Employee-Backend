@@ -43,6 +43,8 @@ public class SecurityConfig {
                 // Login endpoint is PUBLIC — anyone can access
                 .requestMatchers("/api/auth/login").permitAll()
 
+
+                 // EMPLOYEE endpoints
                 // DELETE only SUPER_ADMIN can delete
                 .requestMatchers(HttpMethod.DELETE, "/api/employees/**").hasRole("SUPER_ADMIN")
 
@@ -54,6 +56,12 @@ public class SecurityConfig {
 
                 // GET (view) all roles can view
                 .requestMatchers(HttpMethod.GET, "/api/employees/**").hasAnyRole("SUPER_ADMIN", "ADMIN", "EMPLOYEE")
+
+                //Holiday endpoint..
+                .requestMatchers(HttpMethod.DELETE, "/api/holidays/**").hasRole("SUPER_ADMIN")
+                .requestMatchers(HttpMethod.POST, "/api/holidays").hasAnyRole("SUPER_ADMIN", "ADMIN")
+                .requestMatchers(HttpMethod.PUT, "/api/holidays/**").hasAnyRole("SUPER_ADMIN", "ADMIN")
+                .requestMatchers(HttpMethod.GET, "/api/holidays/**").hasAnyRole("SUPER_ADMIN", "ADMIN", "EMPLOYEE")
 
                 // Everything else needs authentication
                 .anyRequest().authenticated()
