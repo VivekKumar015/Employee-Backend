@@ -44,4 +44,13 @@ public class Employee {
 
     @Column(name = "phone")
     private String phone;
+
+    // NEW FIELDS FOR AUTHENTICATION
+    // Password stored as BCrypt hash — never plain text!
+    @Column(name = "password")
+    private String password;
+
+    // Role can be: SUPER_ADMIN, ADMIN, EMPLOYEE
+    @Column(name = "role")
+    private String role;
 }
